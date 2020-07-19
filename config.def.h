@@ -27,6 +27,10 @@ static char *colors[][3] = {
        [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
 };
 
+/* swallow emacs */
+static const char emacsclient[] = "emacsclient";
+static const char emacsname[] = "emacs@";
+
 /* tagging */
 static const char *tags[] = { "1", "2", "3" };
 
@@ -76,15 +80,15 @@ static const char *mutecmd[] = { "amixer", "-q", "set", "Master", "toggle", NULL
 static const char *volupcmd[] = { "amixer", "-q", "set", "Master", "5%+", "unmute", NULL };
 static const char *voldowncmd[] = { "amixer", "-q", "set", "Master", "5%-", "unmute", NULL };
 // static const char *miccmd[] = { "amixer", "set", "Capture", "toggle", NULL };
-static const char *brupcmd[] = { "sudo", "xbacklight", "-inc", "10", NULL };
-static const char *brdowncmd[] = { "sudo", "xbacklight", "-dec", "10", NULL };
+static const char *brupcmd[] = { "/home/ozan/.scripts/backlight.sh", "u", NULL };
+static const char *brdowncmd[] = { "/home/ozan/.scripts/backlight.sh", "d", NULL };
 static const char *lockcmd[] = {"slock", NULL};
 
 #include "movestack.c"
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+	{ Mod4Mask,			XK_p,	   spawn,	   {.v = dmenucmd } },
+	{ Mod4Mask,	                XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -94,9 +98,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
-	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
+	{ Mod4Mask|ShiftMask,           XK_c,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
